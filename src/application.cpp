@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <vector>
 #include <iostream>
+#include <optional>
 
 #include "vulkan_extensions.h"
 #include "application.h"
@@ -180,5 +181,31 @@ bool Application::isDeviceSuitable(VkPhysicalDevice device) {
     VkPhysicalDeviceFeatures deviceFeatures;
     vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
-    return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && deviceFeatures.geometryShader;
+    QueueFamilyIndices indices = findQueueFamilies(device);
+
+    return indices.isComplete() && deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && deviceFeatures.geometryShader;
+}
+
+QueueFamilyIndices Application::findQueueFamilies(VkPhysicalDevice device) {
+   QueueFamilyIndices indices;
+
+   uint32_t queueFamilyCount = 0;
+   vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+
+   std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+    vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+    for(uint32_t i=0; i<queueFamilyCount; i++) {
+        if(queueFamilies[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+            indices.graphicsFamily = i;
+        }
+
+        if(indices.isComplete()) {
+            break;
+        }
+
+        i++;
+    }
+
+   return indices;
 }

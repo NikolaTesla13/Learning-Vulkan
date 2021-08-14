@@ -3,6 +3,14 @@
 //
 #pragma once
 
+struct QueueFamilyIndices {
+    std::optional<uint32_t> graphicsFamily;
+
+    bool isComplete() const {
+        return graphicsFamily.has_value();
+    }
+};
+
 class Application {
 public:
     void run();
@@ -40,6 +48,7 @@ private:
     std::vector<const char*> getRequiredExtensions();
     void pickPhysicalDevice();
     static bool isDeviceSuitable(VkPhysicalDevice device);
+    static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 
     void setupDebugMessenger();
 };

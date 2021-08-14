@@ -33,6 +33,9 @@ private:
 
     VkInstance instance;
     VkDebugUtilsMessengerEXT debugMessenger;
+    VkPhysicalDevice physicalDevice;
+    VkDevice device;
+    VkQueue graphicsQueue;
 
     void initWindow();
     void initVulkan();
@@ -49,6 +52,7 @@ private:
     void pickPhysicalDevice();
     static bool isDeviceSuitable(VkPhysicalDevice device);
     static QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+    void createLogicalDevice();
 
     void setupDebugMessenger();
 };

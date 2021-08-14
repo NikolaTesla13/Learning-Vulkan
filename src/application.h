@@ -38,6 +38,8 @@ private:
     void createInstance();
     bool checkValidationLayerSupport();
     std::vector<const char*> getRequiredExtensions();
+    void pickPhysicalDevice();
+    static bool isDeviceSuitable(VkPhysicalDevice device);
 
     void setupDebugMessenger();
 };

@@ -3,9 +3,6 @@
 //
 #pragma once
 
-const uint32_t WIDTH = 1080;
-const uint32_t HEIGHT = 720;
-
 class Application {
 public:
     void run();
@@ -13,12 +10,34 @@ public:
 private:
     GLFWwindow* window;
 
+    const uint32_t WIDTH = 1080;
+    const uint32_t HEIGHT = 720;
+
+    const std::vector<const char*> validationLayers = {
+            "VK_LAYER_KHRONOS_validation"
+    };
+
+#ifdef NDEBUG
+    const bool enableValidationLayers = false;
+#else
+    const bool enableValidationLayers = true;
+#endif
+
     VkInstance instance;
+    VkDebugUtilsMessengerEXT debugMessenger;
 
     void initWindow();
     void initVulkan();
     void mainLoop();
     void cleanup();
 
+    static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+                                        VkDebugUtilsMessageTypeFlagBitsEXT messageType,
+                                        VkDebugUtilsMessengerCallbackDataEXT *pCallbackData, void *pUserData);
+
     void createInstance();
+    bool checkValidationLayerSupport();
+    std::vector<const char*> getRequiredExtensions();
+
+    void setupDebugMessenger();
 };

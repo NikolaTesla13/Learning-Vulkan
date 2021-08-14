@@ -7,7 +7,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_BUILD_TYPE Debug)
 
 find_package(Vulkan REQUIRED FATAL_ERROR)
-add_executable(LearningVulkan src/main.cpp src/application.h src/application.cpp)
+add_executable(LearningVulkan src/main.cpp src/application.h src/application.cpp src/vulkan_extensions.h)
 
 if(Vulkan_FOUND)
     target_include_directories(LearningVulkan PRIVATE Vulkan::Vulkan)

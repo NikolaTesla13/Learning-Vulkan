@@ -52,6 +52,7 @@ private:
     std::vector<VkImage> swapchainImages;
     VkFormat swapchainImageFormat;
     VkExtent2D swapchainExtent;
+    std::vector<VkImageView> swapchainImageViews;
 
     void initWindow();
     void initVulkan();
@@ -76,6 +77,7 @@ private:
     VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
     void createSwapchain();
+    void createImageViews();
 
     void setupDebugMessenger();
 };

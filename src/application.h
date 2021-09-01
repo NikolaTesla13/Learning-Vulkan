@@ -78,6 +78,9 @@ private:
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
     void createSwapchain();
     void createImageViews();
+    void createGraphicsPipeline();
+    std::vector<char> readFile(const std::string& filename);
+    VkShaderModule createShaderModule(const std::vector<char>& code);
 
     void setupDebugMessenger();
 };

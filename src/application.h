@@ -53,6 +53,7 @@ private:
     VkFormat swapchainImageFormat;
     VkExtent2D swapchainExtent;
     std::vector<VkImageView> swapchainImageViews;
+    VkRenderPass renderPass;
     VkPipelineLayout pipelineLayout;
 
     void initWindow();
@@ -82,6 +83,7 @@ private:
     void createGraphicsPipeline();
     std::vector<char> readFile(const std::string& filename);
     VkShaderModule createShaderModule(const std::vector<char>& code);
+    void createRenderPass();
 
     void setupDebugMessenger();
 };
